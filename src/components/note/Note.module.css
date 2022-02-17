@@ -1,0 +1,32 @@
+.note{
+    width: 100%;
+    box-shadow: 1px 2px 8px 0px rgba(34, 60, 80, 0.2);
+    font-size:1.5em;
+    margin: 0.2em 0 0.2em 0;
+    border-radius: 5px;
+}
+
+.title{
+    font-size: 0.8em;
+    color: #ffffff;
+    font-weight: lighter;
+    padding: 0.5em;
+}
+.noteHeader{
+    font-size: 0.9em;
+    background: #1876d2;
+}
+.noteDescription{
+    background: white;
+    padding: 0.3em;
+    font-size: 0.7em;
+    color: #916161;
+    font-weight: lighter;
+}
+.buttonsBlock{
+    background: white;
+    padding: 0.3em;
+}
+.button{
+
+}
