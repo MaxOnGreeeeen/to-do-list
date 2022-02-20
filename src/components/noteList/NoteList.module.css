@@ -1,12 +1,11 @@
 
 .titleDiv{
     display: inline-flex;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
 }
 .mainTitle{
     display: flex;
-    justify-content: flex-start;
     font-size: 2em;
     color:#916161;
     font-weight: lighter;

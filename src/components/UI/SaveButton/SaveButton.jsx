@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 function SaveButton({...props}){
     return(
-        <Button {...props}variant="contained" endIcon={<SendIcon />}>Create</Button>
+        <Button {...props}variant="contained" endIcon={<SendIcon />}>{props.children}</Button>
     );
 };
 export default SaveButton;

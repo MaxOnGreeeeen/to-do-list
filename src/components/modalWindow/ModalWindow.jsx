@@ -1,15 +1,41 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './ModalWIndow.module.css'
-const ModalWindow = ({active, setActive}) => {
+import TextField from "@mui/material/TextField";
+import MultiLineTextarea from "../UI/MultilineTextarea/MultiLineTextarea";
+import SaveButton from "../UI/SaveButton/SaveButton";
+import Stack from "@mui/material/Stack";
+const ModalWindow = ({active, setActive, modalContent, changeNote}) => {
+    const [note, setNote] = useState({title : modalContent.title, id : modalContent.id,
+        description : modalContent.description});
 
+    const handleSaveButton = () => {
+        changeNote(note);setActive(false)
+    }
     useEffect(() =>{
-        console.log(active)
-    })
+        setNote(modalContent);
+    },[modalContent])
+
     return (
         <div className= {active ? `${classes.modalWindow} ${classes.active}` : classes.modalWindow}
              onClick={()=> setActive(false)}>
             <div className={classes.modalContent}
-                onClick={e => e.stopPropagation()}/>
+                 onClick={e => e.stopPropagation()}>
+                <Stack direction="column" spacing={2}>
+                    <TextField
+                        size = "small"
+                        id="outlined-basic"
+                        label="Title"
+                        variant="outlined"
+                        value = {note.title}
+                        onChange = {e => setNote({...note, title : e.target.value})}/>
+                    <MultiLineTextarea
+                        id ="outlined-basic"
+                        value = {note.description}
+                        label = "Description"
+                        onChange = {e => setNote({...note, description : e.target.value})}/>
+                    <SaveButton children = {"Save changes"} onClick = {handleSaveButton}/>
+                </Stack>
+            </div>
         </div>
     );
 };
