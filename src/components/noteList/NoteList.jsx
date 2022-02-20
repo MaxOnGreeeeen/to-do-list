@@ -1,7 +1,7 @@
 import React from 'react'
 import Note from '../note/Note.jsx';
 import classes from './NoteList.module.css'
-function NoteList({notes, remove, title}){
+function NoteList({notes, remove, title, change}){
     return(
         <div className = {classes.notesContainer}>
             <div className = {classes.titleDiv}>
@@ -10,7 +10,7 @@ function NoteList({notes, remove, title}){
                 </h1>
              </div>
             {notes.map(note =>
-                <Note note = {note} remove = {remove} key = {note.id}/>
+                <Note note = {note} remove = {remove} change = {change}key = {note.id}/>
             )}
         </div>
     );

@@ -1,7 +1,10 @@
 import './App.css';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import NoteCreateForm from './components/noteCreateForm/noteCreateForm';
 import NoteList from './components/noteList/NoteList.jsx';
+import Box from '@mui/material/Box'
+import ButtonAppBar from "./components/TopPanel/ButtonAppBar";
+
 
 function App(){
   const [notes, setNotes] = useState([
@@ -13,12 +16,19 @@ function App(){
   const addNote = (noteToAdd) =>{
       setNotes([...notes, noteToAdd])
     }
+
+    //here we're going to draw modal window after clicl to change button
+   useEffect(() =>{
+       }
+   )
+
   const removeNote = (noteToDelete) =>{
       setNotes(notes.filter( note => note.id !== noteToDelete.id))
   }
   return (
     <div className="App">
-        <NoteCreateForm create = {addNote}/>
+        <ButtonAppBar/>
+        <NoteCreateForm create = {addNote} />
         {notes.length !== 0
             ? <NoteList
                 title = "Your notes list"
@@ -29,5 +39,4 @@ function App(){
     </div>
   );
 }
-
 export default App;

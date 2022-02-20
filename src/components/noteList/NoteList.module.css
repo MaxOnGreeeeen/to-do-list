@@ -20,4 +20,5 @@
     align-items: center;
     margin-top: 20px;
     background: #efefef;
+    max-width: 50vw;
 }
