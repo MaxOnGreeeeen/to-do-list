@@ -1,50 +1,23 @@
+import React, {useState} from "react";
 import './App.css';
-import {useState, useEffect} from "react";
-import NoteCreateForm from './components/noteCreateForm/noteCreateForm';
-import NoteList from './components/noteList/NoteList.jsx';
+import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
+import Notes from "./pages/Notes";
 import ButtonAppBar from "./components/TopPanel/ButtonAppBar";
+import About from "./pages/About";
 
 function App(){
-  const [notes, setNotes] = useState([
-      {title : 'sdfsdf', id : 1,description: 'fdgsgsdf sdfgsdf sdfgsdg'},
-      {title : 'Меня зовут максим Андреевич',id : 2, description:'Мне 22 года'},
-      {title : 'Fsdf',id : 3, description:'Привет Олег'},
-      {title : 'sdfgsdfg',id : 4, description:'Hello world : println("heeeello world")'}
-      ]);
-
-  const addNote = (noteToAdd) =>{
-      setNotes([...notes, noteToAdd])
-  }
-  const changeNote = (changedNote) =>{
-       setNotes(() =>{
-           return notes.map((item) => {
-               if (item.id !== changedNote.id) {
-                   return item
-               }
-               // Otherwise, this is the one we want - return an updated value
-               return {...changedNote}
-           })
-       })
-  }
-  useEffect(() => {
-  },[notes])
-
-  const removeNote = (noteToDelete) =>{
-      setNotes(notes.filter( note => note.id !== noteToDelete.id))
-  }
+    const [active, setActive] = useState(true);
+    const changeActive = () =>{
+        setActive( (prev) => !prev)
+    }
   return (
-    <div className="App">
-        <ButtonAppBar/>
-        <NoteCreateForm create = {addNote}/>
-        {notes.length !== 0
-            ? <NoteList
-                title = "Your notes list"
-                notes = {notes}
-                remove = {removeNote}
-                changeNote = {changeNote}/>
-            : <div style={{textAlign: "center", fontSize: 25}}>Notes are not found :(</div>
-        }
-    </div>
+      <Router>
+          <ButtonAppBar active = {active} changeActive = {changeActive} style = {{position: "sticky", top: "0",left: "0",zIndex : "100"}}/>
+          <Routes>
+              <Route active = {active} path="/notes" element={<Notes/>}/>
+              <Route path="/about" element = {<About/>}/>
+          </Routes>
+      </Router>
   );
-}
+};
 export default App;

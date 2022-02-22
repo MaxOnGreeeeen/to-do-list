@@ -12,12 +12,11 @@ const MultiLineTextarea = ({...props}) => {
         <div>
             <TextField {...props}
                 sx = {{width : "100%"}}
-                id="filled-multiline-static"
+                id="outlined-multiline-static"
                 label="Description"
                 multiline
                 rows={4}
                 defaultValue="Default Value"
-                variant="filled"
             />
         </div>
     );

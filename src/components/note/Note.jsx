@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import DeleteButton from '../UI/DeleteButton/DeleteButton.jsx';
 import ChangeContentButton from '../UI/changeContentButton/ChangeContentButton.jsx';
 
@@ -18,7 +18,7 @@ function Note(props){
                 {props.note.description}
           </div>
            <div className={classes.buttonsBlock}>
-                <DeleteButton className = {classes.button} onClick = {() => props.remove(props.note)}/>
+                <DeleteButton style = {{marginRight : "0.3em"}}className = {classes.button} onClick = {() => props.remove(props.note)}/>
                 <ChangeContentButton onClick = {handleChangButtonClick}/>
            </div>
     </div>

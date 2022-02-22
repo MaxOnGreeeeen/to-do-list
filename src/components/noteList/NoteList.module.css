@@ -5,11 +5,12 @@
     width: 100%;
 }
 .mainTitle{
+
     display: flex;
     font-size: 2em;
     color:#916161;
-    font-weight: lighter;
     padding: 0.2em;
+    font-weight: 500;
 }
 .notesContainer{
     display: flex;

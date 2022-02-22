@@ -1,7 +1,4 @@
 #root{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 body{
     font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -12,6 +9,12 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 64px;
+    margin-left: 25vw;
+    transition: 0.5s;
+}
+.App.disableNavBar{
+    margin-left: 0;
 }
 
 

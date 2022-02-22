@@ -4,29 +4,32 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import MultiLineTextarea from '../UI/MultilineTextarea/MultiLineTextarea'
 import classes from './noteCreateForm.module.css'
+import {useDataLoad} from "../../customHooks/useDataLoad";
+import PostService from "../../API/PostService";
 function NoteCreateForm({create}){
     const [note, setNote] = useState({title: '', description : ''});
     const [notesToAdd, setNotesToAdd] = useState([]);
+
+    const [fetchPosts, isPostLoading, errorMessage] = useDataLoad(async () => {
+        await fetchAllPosts;
+    })
+    const fetchAllPosts = async () =>{
+        const postsFromServer = await PostService.getAllPosts();
+        setNotesToAdd(postsFromServer);
+    }
     const createRandomNote = () =>{
         const randomId = Math.floor(Math.random()*notesToAdd.length);
-        console.log(randomId)
         const newNote = {
             title : notesToAdd[randomId].title,
             id : Date.now(),
             description: notesToAdd[randomId].body
         }
-        console.log(newNote)
         create(newNote)
         setNote({title : '', description : ''})
     }
+
     useEffect(async () =>{
-        console.log("Данные подгрузились")
-        try {
-            const resultFromBack = await fetch('https://jsonplaceholder.typicode.com/posts')
-            setNotesToAdd(await resultFromBack.json());
-        } catch (error) {
-            console.log('error')
-        }
+        await fetchAllPosts();
     }, [])
 
     const addNewNote = (e) =>{
@@ -53,8 +56,10 @@ function NoteCreateForm({create}){
                     value = {note.description}
                     label = "Description"
                     onChange = {e => setNote({...note, description : e.target.value})}/>
-                <SaveButton onClick = {addNewNote}  children = {"Create"}/>
-                 <SaveButton onClick = {createRandomNote}  style = {{background : "red"}} children = {"Random Note"}/>
+                 <div className={classes.buttonsBlock}>
+                     <SaveButton onClick = {addNewNote}  children = {"Create"}/>
+                     <SaveButton onClick = {createRandomNote}  style = {{background : "#538552", marginLeft: "0.3em"}} children = {"Random"}/>
+                 </div>
                </Stack>
         </form>
     </div>
