@@ -1,24 +1,27 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import { useFormControl } from '@mui/material/FormControl';
+import React from "react";
 
-const MultiLineTextarea = ({...props}) => {
-    const [value, setValue] = React.useState('Controlled');
+import TextField from "@mui/material/TextField";
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-    return (
-        <div>
-            <TextField {...props}
-                sx = {{width : "100%"}}
-                id="outlined-multiline-static"
-                label="Description"
-                multiline
-                rows={4}
-                defaultValue="Default Value"
-            />
-        </div>
-    );
+import { useFormControl } from "@mui/material/FormControl";
+
+const MultiLineTextarea = ({ ...props }) => {
+  const [value, setValue] = React.useState("Controlled");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+  return (
+    <div>
+      <TextField
+        {...props}
+        sx={{ width: "100%" }}
+        id="outlined-multiline-static"
+        label="Description"
+        multiline
+        rows={4}
+        defaultValue="Default Value"
+      />
+    </div>
+  );
 };
 export default MultiLineTextarea;

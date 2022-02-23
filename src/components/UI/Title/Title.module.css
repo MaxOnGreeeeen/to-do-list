@@ -1,0 +1,11 @@
+.titleBlock{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 1em;
+    padding: 0.2em
+}
+.title{
+    font-weight: 400;
+    font-size: 1.5em;
+}

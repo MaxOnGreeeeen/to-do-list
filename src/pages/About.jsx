@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const About = () => {
-    return (
-        <div>
-            Привет мир
-        </div>
-    );
+  return <div className="App">Привет мир</div>;
 };
 
 export default About;
