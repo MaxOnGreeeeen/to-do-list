@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { TextField, Stack } from "@mui/material";
 
@@ -9,36 +9,45 @@ import {
   Title,
 } from "../UI/index.js";
 
+import { editNote } from "../../redux/actions/notesAction";
+
+import {
+  closeModal,
+  changeTitle,
+  changeDescription,
+} from "../../redux/actions/modalActions";
+
 import classes from "./ModalWIndow.module.css";
 
-const ModalWindow = ({ active, setActive, modalContent, changeNote }) => {
-  const [note, setNote] = useState({
-    title: modalContent.title,
-    id: modalContent.id,
-    description: modalContent.description,
-  });
+const ModalWindow = () => {
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    setNote(modalContent);
-  }, [modalContent]);
+  const modalWindow = useSelector((state) => state.modal);
 
   const handleSaveButton = () => {
-    changeNote(note);
-    setActive(false);
+    dispatch(editNote(modalWindow.modal));
+    dispatch(closeModal(false, {}));
   };
 
-  const closeModal = () => {
-    setActive(false);
+  const closeModalWindow = () => {
+    dispatch(closeModal(false, {}));
+  };
+
+  const onChangeTitleHandler = (e) => {
+    dispatch(changeTitle(e.target.value));
+  };
+  const onChangeDescriptionHandler = (e) => {
+    dispatch(changeDescription(e.target.value));
   };
 
   return (
     <div
       className={
-        active
+        modalWindow.active
           ? `${classes.modalWindow} ${classes.active}`
           : classes.modalWindow
       }
-      onClick={() => setActive(false)}
+      onClick={closeModalWindow}
     >
       <div
         className={classes.modalContent}
@@ -47,7 +56,7 @@ const ModalWindow = ({ active, setActive, modalContent, changeNote }) => {
         <div className={classes.closeModalBlock}>
           <Title children="Edit note" />
           <div className={classes.closeModal}>
-            <CloseButton onClick={closeModal} />
+            <CloseButton onClick={closeModalWindow} />
           </div>
         </div>
 
@@ -57,18 +66,20 @@ const ModalWindow = ({ active, setActive, modalContent, changeNote }) => {
           spacing={2}
         >
           <TextField
+            autoFocus={true}
             size="small"
             id="outlined-basic"
-            label="Title"
             variant="outlined"
-            value={note.title}
-            onChange={(e) => setNote({ ...note, title: e.target.value })}
+            label="Title"
+            defaultValue={"title"}
+            value={modalWindow.modal.title}
+            onChange={onChangeTitleHandler}
           />
           <MultiLineTextarea
             id="outlined-basic"
-            value={note.description}
+            value={modalWindow.modal.description}
             label="Description"
-            onChange={(e) => setNote({ ...note, description: e.target.value })}
+            onChange={onChangeDescriptionHandler}
           />
           <SaveButton children={"Save changes"} onClick={handleSaveButton} />
         </Stack>

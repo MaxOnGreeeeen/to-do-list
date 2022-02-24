@@ -23,14 +23,14 @@ export const notesReducer = (state = initialState, action) => {
     case NOTES_CREATE:
       return {
         ...state,
-        notes: [...state.notes, action.payload],
+        notes: [action.payload, ...state.notes],
       };
     case NOTES_EDIT:
       return {
         ...state,
         notes: [
-          ...state.notes.filter((note) => note.id !== action.payload.id),
           action.payload,
+          ...state.notes.filter((note) => note.id !== action.payload.id),
         ],
       };
     case NOTES_LOADING:

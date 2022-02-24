@@ -4,15 +4,20 @@ import { TextField, Stack } from "@mui/material";
 
 import { useDataLoad } from "../../customHooks/useDataLoad";
 
+import { useDispatch } from "react-redux";
+import { createNote } from "../../redux/actions/notesAction";
+
 import postService from "../../API/PostService";
 
 import { SaveButton, MultiLineTextarea, Title } from "../UI/index.js";
 
 import classes from "./noteCreateForm.module.css";
 
-const NoteCreateForm = ({ create }) => {
+const NoteCreateForm = () => {
   const [note, setNote] = useState({ title: "", description: "" });
   const [notesToAdd, setNotesToAdd] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(async () => {
     await fetchAllPosts();
@@ -37,7 +42,7 @@ const NoteCreateForm = ({ create }) => {
       description: notesToAdd[randomId].body,
     };
 
-    create(newNote);
+    dispatch(createNote(newNote));
 
     setNote({ title: "", description: "" });
   };
@@ -50,9 +55,16 @@ const NoteCreateForm = ({ create }) => {
       id: Date.now(),
     };
 
-    create(newNote);
+    dispatch(createNote(newNote));
 
     setNote({ title: "", description: "" });
+  };
+
+  const onChangeTitleHandler = (e) => {
+    setNote({ ...note, title: e.target.value });
+  };
+  const onChangeDescriptionHandler = (e) => {
+    setNote({ ...note, description: e.target.value });
   };
 
   return (
@@ -67,14 +79,14 @@ const NoteCreateForm = ({ create }) => {
             label="Title"
             variant="outlined"
             value={note.title}
-            onChange={(e) => setNote({ ...note, title: e.target.value })}
+            onChange={onChangeTitleHandler}
           />
 
           <MultiLineTextarea
             id="outlined-basic"
             value={note.description}
             label="Description"
-            onChange={(e) => setNote({ ...note, description: e.target.value })}
+            onChange={onChangeDescriptionHandler}
           />
 
           <div className={classes.buttonsBlock}>
