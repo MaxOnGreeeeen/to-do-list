@@ -8,6 +8,7 @@ const router = Router();
 const jwt = require("jsonwebtoken");
 
 // /api/auth
+//регистрация нового пользователя
 router.post(
   "/register",
   [
@@ -25,7 +26,11 @@ router.post(
           message: "Your password is not long enough",
         });
       }
-      const { email, password } = request.body;
+      const { email, password, firstName, lastName } = request.body;
+
+      if (!email || !password || !firstName || !lastName) {
+        return response.status(400).json({ message: "Заполните все поля" });
+      }
 
       const unChecked = await User.findOne({ email });
 
@@ -37,7 +42,12 @@ router.post(
       //кодируем пароль
       const hashedPassword = await bcrypt.hash(password, 12);
       //создание нового пользователя
-      const User = new User({ email, password: hashedPassword });
+      const user = new User({
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+      });
 
       await user.save();
 
@@ -48,6 +58,7 @@ router.post(
   }
 );
 
+//авторизация пользователя
 router.post(
   "/login",
   [
