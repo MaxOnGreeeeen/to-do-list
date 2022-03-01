@@ -3,6 +3,7 @@ import {
   AUTH_LOGIN,
   AUTH_LOGOUT,
   AUTH_LOGIN_ERROR,
+  AUTH_REGISTER,
 } from "./types";
 
 import { setError } from "./errorActions";
@@ -35,7 +36,25 @@ export const loginUser = (form) => async (dispatch) => {
   }
 };
 
-export const registerUser = (form) => ({
-  type: AUTH_CREATE,
-  payload: form,
-});
+export const registerUser = (form) => async (dispatch) => {
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.message || "something got wrong");
+    }
+
+    dispatch({ type: AUTH_REGISTER, payload: json });
+  } catch (error) {
+    dispatch({ type: AUTH_LOGIN_ERROR, payload: error.message });
+    dispatch(setError(error.message));
+  }
+};

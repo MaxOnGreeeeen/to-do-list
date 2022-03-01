@@ -1,5 +1,5 @@
 import {
-  AUTH_CREATE,
+  AUTH_REGISTER,
   AUTH_LOGOUT,
   AUTH_LOGIN,
   AUTH_LOGIN_ERROR,
@@ -15,6 +15,17 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_LOGIN:
+      localStorage.setItem(
+        "userData",
+        JSON.stringify(action.payload.userId, action.payload.token)
+      );
+      return {
+        ...state,
+        user: action.payload.user,
+        isLoading: false,
+        isAuthorized: true,
+      };
+    case AUTH_REGISTER:
       localStorage.setItem(
         "userData",
         JSON.stringify(action.payload.userId, action.payload.token)

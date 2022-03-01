@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { registerUser } from "../../../redux/actions/authActions";
 
@@ -15,18 +15,14 @@ import classes from "./Registration.module.css";
 const Registration = () => {
   const [checked, setChecked] = useState(true);
 
+  const error = useSelector((state) => state.error);
+
   const [passwordConfirmed, setPasswordConfirmed] = useState(false);
 
   const [passwordsCompare, setPasswordCompare] = useState({
     password: "",
     passwordConf: "",
   });
-
-  const comparePasswords = () => {
-    if (passwordsCompare.password === passwordsCompare.passwordConf) {
-      setPasswordConfirmed(true);
-    } else setPasswordConfirmed(false);
-  };
 
   const [form, setForm] = useState({
     email: "",
@@ -35,9 +31,21 @@ const Registration = () => {
     lastName: "",
   });
 
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setMessage(error.message);
+  }, [error]);
+
   useEffect(() => {
     setMessage("");
   }, [checked]);
+
+  const comparePasswords = () => {
+    if (passwordsCompare.password === passwordsCompare.passwordConf) {
+      setPasswordConfirmed(true);
+    } else setPasswordConfirmed(false);
+  };
 
   const dispatch = useDispatch();
 
@@ -47,7 +55,7 @@ const Registration = () => {
     comparePasswords();
 
     if (checked && passwordConfirmed) {
-      dispatch(registerUser());
+      dispatch(registerUser(form));
     }
 
     if (!checked) {
@@ -76,8 +84,6 @@ const Registration = () => {
       setPasswordCompare({ ...passwordsCompare, passwordConf: e.target.value });
     }
   };
-
-  const [message, setMessage] = useState("");
 
   return (
     <div className={classes.registrationPage}>
