@@ -12,7 +12,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.0",
     "mongoose": "^6.2.3",
-    "node": "^17.4.0"
+    "node": "^17.4.0",
+    "react-router": "^6.2.2"
   },
   "scripts": {
     "start": "node server.js",

@@ -14,14 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { loginUser } from "../../../redux/actions/authActions";
 
-const Auth = ({ authorize, setAuthorize }) => {
+const Auth = () => {
   const errorMessage = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setMessage(errorMessage.message);
     setForm({ ...form, password: "" });
-    console.log(message);
   }, [errorMessage]);
 
   const [message, setMessage] = useState("");

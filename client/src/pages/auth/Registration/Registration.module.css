@@ -1,0 +1,42 @@
+
+.registrationPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.registrationForm{
+    -webkit-box-shadow: 1px 1px 10px -3px rgba(34, 60, 80, 0.6);
+    -moz-box-shadow: 1px 1px 10px -3px rgba(34, 60, 80, 0.6);
+    box-shadow: 1px 1px 10px -3px rgba(34, 60, 80, 0.6);
+    padding: 1em;
+    width: 30vw;
+    max-width: 600px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleBlock {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    font-weight: 300;
+    font-size: 2em;
+}
+
+.inputParam{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.checkBoxBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}

@@ -35,7 +35,7 @@ export const loginUser = (form) => async (dispatch) => {
   }
 };
 
-export const registerUser = (user) => ({
+export const registerUser = (form) => ({
   type: AUTH_CREATE,
-  payload: user,
+  payload: form,
 });
