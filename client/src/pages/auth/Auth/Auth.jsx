@@ -16,10 +16,12 @@ import { loginUser } from "../../../redux/actions/authActions";
 
 const Auth = () => {
   const errorMessage = useSelector((state) => state.error);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setMessage(errorMessage.message);
+    setMessage(errorMessage.error.message);
+
     setForm({ ...form, password: "" });
   }, [errorMessage]);
 
@@ -37,6 +39,7 @@ const Auth = () => {
 
   const loginHandle = (e) => {
     e.preventDefault();
+
     dispatch(loginUser(form));
   };
 

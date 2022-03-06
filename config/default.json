@@ -1,5 +1,5 @@
 {
   "port" : 5000,
-  "jwtSecret": "",
+  "jwtSecret": "secretValue",
   "mongoUri" : "mongodb+srv://Max_on_green:loyH5oJ39JOHIJ94@cluster0.oz0mk.mongodb.net/appDataBase?retryWrites=true&w=majority"
 }

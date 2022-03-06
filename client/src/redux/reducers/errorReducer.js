@@ -11,11 +11,16 @@ export const errorReducer = (state = initialState, action) => {
     case ERROR_SET:
       return {
         ...state,
-        message: action.payload,
+        error: {
+          message: action.payload,
+        },
       };
     case ERROR_CLEAR:
       return {
-        message: "",
+        ...state,
+        error: {
+          message: action.payload,
+        },
       };
     default:
       return state;

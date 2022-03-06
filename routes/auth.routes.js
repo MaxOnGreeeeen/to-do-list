@@ -6,8 +6,16 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const router = Router();
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth.middleware");
 
 // /api/auth
+
+//проверка авторизации пользователя
+router.get("/user", auth, (request, response) => {
+  User.findById(request.user.id)
+    .select("-password")
+    .then((user) => response.json(user));
+});
 //регистрация нового пользователя
 router.post(
   "/register",

@@ -1,27 +1,36 @@
 import React from "react";
 
-import { Navigate, Redirect, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { About, Auth, Notes, Registration } from "./pages";
+import MainPage from "./pages/MainPage";
 
 const RoutesPage = ({ isAuthorized }) => {
   if (isAuthorized) {
     return (
       <div>
         <Routes>
-          <Route path="/notes" element={<Notes />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/registration" element={<Registration />} />
+          <Route
+            path="/"
+            element={isAuthorized ? <MainPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/notes"
+            element={isAuthorized ? <Notes /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/about"
+            element={isAuthorized ? <About /> : <Navigate to="/login" />}
+          />
         </Routes>
-        :
       </div>
     );
   }
-  //TODO: solve an issue of redirection
   if (!isAuthorized) {
     return (
       <div>
         <Routes>
+          <Route path="/" element={<Auth />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/registration" element={<Registration />} />
         </Routes>

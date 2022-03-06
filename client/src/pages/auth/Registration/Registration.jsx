@@ -10,7 +10,7 @@ import HouseIcon from "@mui/icons-material/House";
 
 import classes from "./Registration.module.css";
 
-//TODO: создать страницу регистрации проработать логику возникновения уведомлений
+//TODO: проработать логику возникновения уведомлений, проработать на редиректом
 
 const Registration = () => {
   const [checked, setChecked] = useState(true);
@@ -34,7 +34,7 @@ const Registration = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    setMessage(error.message);
+    setMessage(error.error.message);
   }, [error]);
 
   useEffect(() => {

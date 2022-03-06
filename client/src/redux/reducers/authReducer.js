@@ -3,6 +3,8 @@ import {
   AUTH_LOGOUT,
   AUTH_LOGIN,
   AUTH_LOGIN_ERROR,
+  AUTH_LOADED,
+  AUTH_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +16,19 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AUTH_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case AUTH_LOADED:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthorized: true,
+        user: action.payload.user,
+        token: action.payload.token,
+      };
     case AUTH_LOGIN:
       localStorage.setItem(
         "userData",
