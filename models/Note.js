@@ -16,16 +16,22 @@ const noteSchema = new Schema({
   },
   deadline: {
     type: Date,
-    required: true,
+    required: false,
   },
   importance: {
     type: String,
     default: "0",
   },
+  completed: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: false,
   },
 });
 
-module.exports = model("Task", noteSchema);
+module.exports = model("Note", noteSchema);

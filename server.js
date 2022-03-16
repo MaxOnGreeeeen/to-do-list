@@ -9,6 +9,8 @@ const app = express();
 const PORT = config.get("port") || 5000;
 const URI = config.get("mongoUri");
 
+const { Note } = require("./models/Note");
+
 app.use(express.json({ extended: true }));
 
 const cors = require("cors");
@@ -19,7 +21,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.use(cors()); // Use this after the variable declaration
+app.use(cors());
 
 async function start() {
   try {
@@ -28,16 +30,16 @@ async function start() {
       useUnifiedTopology: true,
       serverApi: ServerApiVersion.v1,
     });
-    app.listen(PORT, () => console.log("Жека пидрильник " + PORT));
   } catch (e) {
-    console.log(e.getMessage);
+    console.log(e.message);
     process.exit(1);
   }
 }
-app.use("/hello", (req, res) => {
-  res.send("МАКС ГОВНОЕД, Я ПРИДУМАЛ КРУЧЕ!!!");
-});
 
 start();
 
 app.use("/api/auth", require("./routes/auth.routes"));
+
+app.use("/api/note", require("./routes/note.routes"));
+
+module.exports = { app };

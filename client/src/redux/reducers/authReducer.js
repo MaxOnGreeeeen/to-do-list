@@ -30,10 +30,7 @@ export const authReducer = (state = initialState, action) => {
         token: action.payload.token,
       };
     case AUTH_LOGIN:
-      localStorage.setItem(
-        "userData",
-        JSON.stringify(action.payload.userId, action.payload.token)
-      );
+      localStorage.setItem("userData", action.payload.token);
       return {
         ...state,
         user: action.payload.user,
@@ -54,6 +51,9 @@ export const authReducer = (state = initialState, action) => {
     case AUTH_LOGIN_ERROR:
       return {
         ...state,
+        isAuthorized: false,
+        user: null,
+        isLoading: false,
       };
     case AUTH_LOGOUT:
       localStorage.removeItem("userData");

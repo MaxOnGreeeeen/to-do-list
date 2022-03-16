@@ -2,7 +2,10 @@ import React from "react";
 
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useNavigate } from "react-router";
+
 import { About, Auth, Notes, Registration } from "./pages";
+
 import MainPage from "./pages/MainPage";
 
 const RoutesPage = ({ isAuthorized }) => {
@@ -22,6 +25,7 @@ const RoutesPage = ({ isAuthorized }) => {
             path="/about"
             element={isAuthorized ? <About /> : <Navigate to="/login" />}
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     );
@@ -33,6 +37,7 @@ const RoutesPage = ({ isAuthorized }) => {
           <Route path="/" element={<Auth />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
     );
