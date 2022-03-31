@@ -1,0 +1,72 @@
+input[type="text"], input[type="submit"]{
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    box-sizing: border-box;
+}
+
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: inherit; /* 1 */
+    line-height: inherit; /* 1 */
+    margin: 0; /* 2 */
+    resize: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.inputField{
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: #333333;
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+    background: none;
+}
+
+.searchInput{
+    width: 205px;
+}
+
+.inputField:focus{
+    width: 300px;
+    outline: none;
+}
+
+input::placeholder{
+    color: #8A8A8A;
+    font-style: normal;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.multilineInput{
+    height: 105px;
+    padding: 3px;
+    border: none;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #333333;
+    background: none;
+}
+
+textarea::placeholder{
+    color: #8A8A8A;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.multilineInput:focus{
+    outline: none;
+}
+
+

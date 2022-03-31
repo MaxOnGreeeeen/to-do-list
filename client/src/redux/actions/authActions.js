@@ -21,28 +21,12 @@ export const loadUser = () => async (dispatch, getState) => {
   await axios
     .get("http://localhost:5000/api/auth/user", tokenConfig(getState))
     .then((response) => {
-      dispatch({ type: AUTH_LOADED, payload: response });
+      dispatch({ type: AUTH_LOADED, payload: response.data });
     })
     .catch((error) => {
       dispatch({ type: AUTH_LOGIN_ERROR });
       dispatch(setError(error.message));
     });
-
-  /*try {
-    const request = await fetch(
-      "http://localhost:5000/api/auth/user",
-      tokenConfig(getState)
-    );
-
-    const json = await request.json();
-
-    if (!request.ok) {
-      throw new Error(json.message || "You are not authorized");
-    }
-    dispatch({ type: AUTH_LOADED, payload: json });
-  } catch (error) {
-
-  }*/
 };
 
 export const loginUser = (form) => async (dispatch) => {
@@ -50,6 +34,7 @@ export const loginUser = (form) => async (dispatch) => {
     const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(form),
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,12 +42,13 @@ export const loginUser = (form) => async (dispatch) => {
 
     const json = await response.json();
 
+    console.log(json);
+
     if (!response.ok) {
       throw new Error(json.message || "something got wrong");
     }
-
+    dispatch({ type: AUTH_LOADING });
     dispatch({ type: AUTH_LOGIN, payload: json });
-
     dispatch(clearError());
   } catch (error) {
     dispatch({ type: AUTH_LOGIN_ERROR, payload: error.message });
@@ -94,11 +80,26 @@ export const registerUser = (form) => async (dispatch) => {
 };
 
 export const tokenConfig = (getState) => {
-  const token = getState().auth.token;
+  const userData = getState().auth.token;
+
+  let token, idOfUser;
+
+  if (userData !== null) {
+    token = JSON.parse(userData).token;
+  }
+
+  if (userData !== null) {
+    idOfUser = JSON.parse(userData).userId;
+  }
 
   const config = {
     headers: {
       "Content-Type": "application/json",
+    },
+    body: {
+      user: {
+        id: idOfUser,
+      },
     },
   };
 

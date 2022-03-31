@@ -1,0 +1,13 @@
+.querySearch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    margin: 7px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.icon{
+    margin-left: 5px;
+}

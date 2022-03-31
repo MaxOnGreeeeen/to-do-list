@@ -8,7 +8,12 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  user: null,
+  user: {
+    firstName: "",
+    lastName: "",
+    id: null,
+    email: "",
+  },
   isLoading: false,
   isAuthorized: false,
   token: localStorage.getItem("userData"),
@@ -26,21 +31,40 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isAuthorized: true,
-        user: action.payload.user,
-        token: action.payload.token,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+        },
       };
     case AUTH_LOGIN:
-      localStorage.setItem("userData", action.payload.token);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          userId: action.payload.user.userId,
+          token: action.payload.token,
+        })
+      );
       return {
         ...state,
-        user: action.payload.user,
+        user: {
+          ...state.user,
+          id: action.payload.user.userId,
+          firstName: action.payload.user.firstName,
+          lastName: action.payload.user.lastName,
+          email: action.payload.user.email,
+        },
         isLoading: false,
         isAuthorized: true,
       };
     case AUTH_REGISTER:
       localStorage.setItem(
         "userData",
-        JSON.stringify(action.payload.userId, action.payload.token)
+        JSON.stringify({
+          userId: action.payload.userId,
+          token: action.payload.token,
+        })
       );
       return {
         ...state,
@@ -52,7 +76,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthorized: false,
-        user: null,
+        user: { firstName: "", lastName: "", id: null, email: "" },
         isLoading: false,
       };
     case AUTH_LOGOUT:
@@ -60,7 +84,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: localStorage.getItem("userData"),
-        user: null,
+        user: {
+          firstName: "",
+          lastName: "",
+          id: null,
+          email: "",
+        },
         isAuthorized: false,
         isLoading: false,
       };

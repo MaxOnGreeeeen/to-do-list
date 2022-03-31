@@ -11,10 +11,18 @@ const auth = require("../middleware/auth.middleware");
 // /api/auth
 
 //проверка авторизации пользователя
-router.get("/user", auth, (request, response) => {
-  User.findById(request.user.id)
-    .select("-password")
-    .then((user) => response.json(user));
+router.get("/user", auth, async (request, response) => {
+  try {
+    const userData = await User.findById(request.user.userId).select(
+      "-password"
+    );
+    response.status(200).json(userData);
+  } catch (e) {
+    response.status(500).json({ message: "Something went wrong..." });
+  }
+  /*const userData = await User.findById(request.user.id)
+        .select("-password")
+        .then((user) => response.json(user));*/
 });
 //регистрация нового пользователя
 router.post(
@@ -103,7 +111,7 @@ router.post(
         expiresIn: "1h",
       });
 
-      response.json({ token, userId: user.id });
+      response.json({ token, user: user });
     } catch (e) {
       console.log(e.message);
     }

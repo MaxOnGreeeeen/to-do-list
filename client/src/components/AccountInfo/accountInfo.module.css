@@ -1,0 +1,48 @@
+.accountBlock{
+    margin-right: 16px;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.photoContainer{
+    cursor: pointer;
+    border-radius: 50%;
+    background: #ffffff;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accountInformation{
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.accountPhoto{
+    overflow: hidden;
+    width:auto;
+    height: 25px;
+}
+
+.accountName{
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+
+@media screen and (max-width: 600px){
+    .accountName{
+        font-size: 10px;
+    }
+}

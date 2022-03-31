@@ -23,6 +23,8 @@ const corsOptions = {
 
 app.use(cors());
 
+start();
+
 async function start() {
   try {
     await mongoose.connect(URI, {
@@ -30,16 +32,17 @@ async function start() {
       useUnifiedTopology: true,
       serverApi: ServerApiVersion.v1,
     });
+    app.listen(PORT, () => console.log(`Connected to server at ${PORT}`));
   } catch (e) {
     console.log(e.message);
     process.exit(1);
   }
 }
 
-start();
-
 app.use("/api/auth", require("./routes/auth.routes"));
 
 app.use("/api/note", require("./routes/note.routes"));
+
+//app.use("/api/user", require("./routes/user.routes"));
 
 module.exports = { app };
